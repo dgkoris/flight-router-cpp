@@ -14,28 +14,28 @@
 #include "Services/JourneyBuilder.h"
 #include "Services/PathFinder.h"
 
-std::string normaliseLocation(std::string location)
+std::string normaliseInput(std::string input)
 {
-    location.erase(
+    input.erase(
         std::remove_if(
-            location.begin(),
-            location.end(),
+            input.begin(),
+            input.end(),
             [](unsigned char character)
     {
         return std::isspace(character);
     }),
-        location.end());
+        input.end());
 
     std::transform(
-        location.begin(),
-        location.end(),
-        location.begin(),
+        input.begin(),
+        input.end(),
+        input.begin(),
         [](unsigned char character)
     {
         return static_cast<char>(std::toupper(character));
     });
 
-    return location;
+    return input;
 }
 
 std::string formatTime(int totalHours)
@@ -89,6 +89,7 @@ int main()
     try
     {
         const std::string defaultDeparture = "+0 day 0 hour";
+        const std::string defaultJourneyType = "1";
 
         JsonLoader loader;
 
@@ -102,6 +103,7 @@ int main()
         std::string origin;
         std::string destination;
         std::string minimumDeparture;
+        std::string journeyType;
 
         std::cout << "Origin: ";
         std::getline(std::cin, origin);
@@ -115,13 +117,24 @@ int main()
             << "): ";
         std::getline(std::cin, minimumDeparture);
 
+        std::cout
+            << "Journey type (1 = Cheapest, 2 = Shortest) "
+            << "(press Enter for default: 1): ";
+        std::getline(std::cin, journeyType);
+
         if (minimumDeparture.empty())
         {
             minimumDeparture = defaultDeparture;
         }
 
-        origin = normaliseLocation(origin);
-        destination = normaliseLocation(destination);
+        if (journeyType.empty())
+        {
+            journeyType = defaultJourneyType;
+        }
+
+        origin = normaliseInput(origin);
+        destination = normaliseInput(destination);
+        journeyType = normaliseInput(journeyType);
 
         if (origin.empty() || destination.empty())
         {
@@ -135,6 +148,14 @@ int main()
         {
             std::cerr
                 << "Origin and destination must be different.\n";
+
+            return 1;
+        }
+
+        if (journeyType != "1" && journeyType != "2")
+        {
+            std::cerr
+                << "Journey type must be 1 or 2.\n";
 
             return 1;
         }
@@ -157,7 +178,7 @@ int main()
             return 0;
         }
 
-        const std::vector<Journey> journeys =
+        std::vector<Journey> journeys =
             journeyBuilder.buildJourneys(
                 paths,
                 minimumDepartureTime);
@@ -174,6 +195,26 @@ int main()
             return 0;
         }
 
+        if (journeyType == "2")
+        {
+            std::stable_sort(
+                journeys.begin(),
+                journeys.end(),
+                [](const Journey& first, const Journey& second)
+            {
+                if (first.totalDuration != second.totalDuration)
+                {
+                    return first.totalDuration
+                        < second.totalDuration;
+                }
+
+                return first.totalPrice < second.totalPrice;
+            });
+        }
+
+        const std::string order =
+            journeyType == "2" ? "duration" : "price";
+
         std::cout
             << "\nFound "
             << journeys.size()
@@ -181,7 +222,9 @@ int main()
             << origin
             << " to "
             << destination
-            << ", ordered by price.\n\n";
+            << ", ordered by "
+            << order
+            << ".\n\n";
 
         for (const Journey& journey : journeys)
         {
