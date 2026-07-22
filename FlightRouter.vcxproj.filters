@@ -30,6 +30,15 @@
     <ClCompile Include="Services\JsonLoader.cpp">
       <Filter>Source Files\Services</Filter>
     </ClCompile>
+    <ClCompile Include="Services\PathFinder.cpp">
+      <Filter>Source Files\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="Services\DepartureTimeParser.cpp">
+      <Filter>Source Files\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="Services\JourneyBuilder.cpp">
+      <Filter>Source Files\Services</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Models\Flight.h">
@@ -45,6 +54,15 @@
       <Filter>Header Files\Models</Filter>
     </ClInclude>
     <ClInclude Include="Services\JsonLoader.h">
+      <Filter>Header Files\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\PathFinder.h">
+      <Filter>Header Files\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\DepartureTimeParser.h">
+      <Filter>Header Files\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Services\JourneyBuilder.h">
       <Filter>Header Files\Services</Filter>
     </ClInclude>
   </ItemGroup>

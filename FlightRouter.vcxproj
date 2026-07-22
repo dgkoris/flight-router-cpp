@@ -140,14 +140,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Services\DepartureTimeParser.cpp" />
+    <ClCompile Include="Services\JourneyBuilder.cpp" />
     <ClCompile Include="Services\JsonLoader.cpp" />
+    <ClCompile Include="Services\PathFinder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Models\Flight.h" />
     <ClInclude Include="Models\Journey.h" />
     <ClInclude Include="Models\JourneyLeg.h" />
     <ClInclude Include="Models\Route.h" />
+    <ClInclude Include="Services\DepartureTimeParser.h" />
+    <ClInclude Include="Services\JourneyBuilder.h" />
     <ClInclude Include="Services\JsonLoader.h" />
+    <ClInclude Include="Services\PathFinder.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Flights.json">
