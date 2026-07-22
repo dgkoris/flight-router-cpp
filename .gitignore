@@ -67,3 +67,29 @@ vcpkg_installed/
 # test output & cache
 Testing/
 .cache/
+
+# Visual Studio
+.vs/
+*.VC.db
+*.VC.opendb
+*.suo
+*.user
+
+# Visual Studio build output
+x64/
+Debug/
+Release/
+
+# MSVC database files
+*.idb
+*.ipch
+
+# MSVC logs
+*.tlog
+*.lastbuildstate
+
+# Visual Studio generated files
+*.recipe
+
+# NuGet packages
+packages/
