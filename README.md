@@ -13,11 +13,10 @@
 
 ## Assumptions & Notes
 
-- The C++ implementation was completed after the C# version and uses the same corrected JSON data.
+- The C++ implementation was completed after the C# version and uses the corrected JSON files from the C# implementation.
 - There is no minimum waiting time between connecting flights.
 - Departure times are interpreted as hours relative to the current time (for example `+2 day 5 hour`).
 - Locations are not revisited within the same path to avoid cycles.
-- The same input data is used as the C# version.
 
 ## Solution
 
